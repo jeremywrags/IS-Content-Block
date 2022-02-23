@@ -2,6 +2,6 @@
     "name": "IS Content Block",
     "description": "Content Block Sample for Interaction Studio",
     "repository": "https://github.com/jeremywrags/IS-Content-Block",
-    "logo": "https://github.com/jeremywrags/IS-Content-Block/icon.png",
+    "logo": "https://raw.githubusercontent.com/jeremywrags/IS-Content-Block/main/icon.png",
     "keywords": ["Marketing Cloud", "BlockSDK", "Interaction Studio"]
   }

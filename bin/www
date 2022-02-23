@@ -22,18 +22,9 @@ app.set('port', port);
  * Create HTTP server.
  */
  var server;
- console.log(process.env.ENVIRONMENT);
+ 
+server = http.createServer(app);
 
- if(process.env.ENVIRONMENT == "DEV"){
-   const options = {
-     key: fs.readFileSync('server.key'),
-     cert: fs.readFileSync('server.cert')
-   };
-   server = https.createServer(options, app);
- }
- else{
-   server = http.createServer(app);
- }
 /**
  * Listen on provided port, on all network interfaces.
  */

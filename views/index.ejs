@@ -3,7 +3,7 @@
 
 <head>
   <title>
-      Interaction Studion Block SDK Example
+      Interaction Studio Block SDK Example
   </title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <script type="text/javascript" src="/blocksdk/blocksdk.js"></script>
@@ -186,10 +186,10 @@ function printCanvas() {
   templateContent +=      'html += \'<img style="border-radius: 10%; width:' + imageWidth + 'px" src="\' + data[i].imageUrl + \'"/>\';' 
   templateContent +=      'html += \'<p>\' + data[i].name + \'</p>\';'
   if(showPrice){
-    templateContent +=      'html += \'<hr><p>\$\' + data[i].price + \'</p>\';';
+    templateContent +=      'html += \'<hr><div style="font-size:' + fontSize + 'px;Font-weight: bold; color:' + nameColor + '">$\' + data[i].price + \'</div>\';';
   }
   if(showInventory){
-    templateContent +=      'html += \'<hr><p>Available:\' + data[i].inventoryCount + \'</p>\';'
+    templateContent +=      'html += \'<hr><div style="font-size:' + fontSize + 'px;Font-weight: bold; color:' + nameColor + '">Available: \' + data[i].inventoryCount + \'</div>\';';    
   }
   
   templateContent +=      'html += \'</div>\';'         

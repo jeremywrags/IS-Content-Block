@@ -287,13 +287,23 @@ $(function () {
       paintSliderValues();
 	  });
   });
-
-  
-
-
-
-      
     </script>
 	
+  <!-- Define app name for GA Tracking -->
+  <script>
+    var expertsUrl = '/projects/cbsdk/IS-Content-Block-calculator';
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114173005-2"></script>
+  <script>
+  //  expertsUrl += window.location.hostname;
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-114173005-2',{
+      'page_path': expertsUrl
+    });
+  </script>
+
   </body>
 </html>

@@ -174,22 +174,23 @@ function printCanvas() {
   }
   classCounter = 0;
   templateContent +=     '</style></head><body><div class="wrapper">'
-  templateContent += "<script runat='server'>Platform.Load('core','1.1'); ";
-  templateContent +=  'var deData = Variable.GetValue("@OrderData"); '
-  templateContent += 	'var data = Platform.Function.ParseJSON(deData); '    
-  templateContent +=  'var html = ""; '
-  templateContent +=  "var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']; "
-  templateContent +=  'try{'
-  templateContent +=    'for(var i = 0; i < data.length; i++){'
-  templateContent +=      'html += \'<div class="box \' + alphabet[i] + \'">\';'
+  templateContent +=  "<script runat='server'>Platform.Load('core','1.1'); ";
+  templateContent +=    'var deData = Variable.GetValue("@OrderData"); '
+  templateContent += 	  'var data = Platform.Function.ParseJSON(deData); '    
+  templateContent +=    'var html = ""; '
+  templateContent +=    "var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']; "
+  templateContent +=    'try{'
+  templateContent +=      'for(var i = 0; i < data.length; i++){'
+  templateContent +=        'html += \'<div class="box \' + alphabet[i] + \'">\';'
   //////////Write the box content here
-  templateContent +=      'html += \'<img style="border-radius: 10%; width:' + imageWidth + 'px" src="\' + data[i].imageUrl + \'"/>\';' 
-  templateContent +=      'html += \'<p>\' + data[i].name + \'</p>\';'
+  templateContent +=        'html += \'<img style="border-radius: 10%; width:' + imageWidth + 'px" src="\' + data[i].imageUrl + \'"/>\';' 
+  templateContent +=        'html += \'<p>\' + data[i].name + \'</p>\';'
   if(showPrice){
     templateContent +=      'html += \'<hr><div style="font-size:' + fontSize + 'px;Font-weight: bold; color:' + nameColor + '">$\' + data[i].price + \'</div>\';';
-  }
+    }
   if(showInventory){
-    templateContent +=      'html += \'<hr><div style="font-size:' + fontSize + 'px;Font-weight: bold; color:' + nameColor + '">Available: \' + data[i].inventoryCount + \'</div>\';';    
+    //templateContent +=      'html += \'<hr><div style="font-size:' + fontSize + 'px;Font-weight: bold; color:' + nameColor + '">Available: \' + data[i].inventoryCount + \'</div>\';';        
+    
   }
   
   templateContent +=      'html += \'</div>\';'         
@@ -200,8 +201,6 @@ function printCanvas() {
   templateContent +=  '}'
   templateContent +=  '<\/script>';  
   templateContent += '</div></body></html>'
-
-  
   console.log(templateContent)  
         
 	sdk.setContent(templateContent);     
@@ -236,6 +235,7 @@ function printCanvas() {
     
     
 
+  
 		sdk.setSuperContent(superContent);
 
     sdk.setData({		

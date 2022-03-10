@@ -11,10 +11,10 @@ var https = require("https");
 var fs = require("fs");
 
 // This line is from the Node.js HTTPS documentation.
-var options = {
-  key: fs.readFileSync('client-key.pem'),
-  cert: fs.readFileSync('client-cert.pem')
-};
+//var options = {
+//  key: fs.readFileSync('client-key.pem'),
+//  cert: fs.readFileSync('client-cert.pem')
+//};
 
 /**
  * Get port from environment and store in Express.
@@ -28,8 +28,8 @@ app.set('port', port);
  */
  var server;
  
-//server = http.createServer(app);
-server = https.createServer(options, app);
+server = http.createServer(app);
+//server = https.createServer(options, app);
 
 /**
  * Listen on provided port, on all network interfaces.

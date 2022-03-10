@@ -24,7 +24,7 @@
         <div class="btn-group">          
           <div>
             <select name="deField" id="deField">
-              <option value="Recommendations">Recommendations</option>
+              <option value="Recommendations" selected="selected">Recommendations</option>
               <option value="Additional_Recommendations">Additional Recommendations</option>              
             </select>
           </div>
@@ -127,7 +127,9 @@
         $("#showInventory").prop("checked", showInventory);                
         $('#nameColorContainer').colorpicker('setValue', nameColor);
         $('#bgColorContainer').colorpicker('setValue', bgColor);        
-        $("#deField").val(deFieldName).change();
+        //$("#deField").val(deFieldName);//.change();       
+        document.getElementById('deField').value = "Recommendations"
+
       }
 
       function paintSliderValues () {
@@ -146,7 +148,9 @@ function printCanvas() {
   bgColor = $('#bgColor').val();
 	showPrice = $("#showPrice").prop("checked");
   showInventory = $("#showInventory").prop("checked");
-  deFieldName = $("#deField").val();
+  deFieldName = $("#deField").val() == null ? "Recommendations" : $("#deField").val();
+  
+
   //Variables for setitng up the dynamic columns
   var items = 4;
   var alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
@@ -154,56 +158,45 @@ function printCanvas() {
   var classCounter = 0;
   //Figure out the number of Columns
   var numberOfRows = Math.ceil(items / itemsPerRow);
-
-
-	//var templateContent = '%%[ Set @OrderData = [json]  ]%%'
-  var templateContent = '%%[ Set @OrderData = [' + deFieldName + ']  ]%%'
+        
+  var tc = '%%[ Set @OrderData = [' + deFieldName + ']  ]%%'
   
-  templateContent +=   '<html><head>'
-  templateContent +=     '<style>'
-  templateContent +=       'body{ margin: 40px; }'
-  templateContent +=       '.box p {font-size:' + parseInt(fontSize) + 'px; padding: 0px 5px; Font-weight: bold; color:' + nameColor + ';}'
-  templateContent +=       '.wrapper { display: grid; grid-gap: 10px; grid-template-columns: ' + imageWidth + 'px'  + imageWidth + 'px'  + imageWidth + 'px' +  + imageWidth + 'px background-color: #fff; color: #444; }'
-  templateContent +=       '.box {background-color:' + bgColor + '; color: #fff; border-radius: 5px; padding: 20px; font-size: 150%; width:' + imageWidth + 'px;}'          
+  tc +=   '<html><head>'
+  tc +=     '<style>'
+  tc +=       'body{ margin: 40px; }'
+  tc +=       '.box p {font-size:' + parseInt(fontSize) + 'px; padding: 0px 5px; Font-weight: bold; color:' + nameColor + ';}'
+  tc +=       '.wrapper { display: grid; grid-gap: 10px; grid-template-columns: ' + imageWidth + 'px'  + imageWidth + 'px'  + imageWidth + 'px' +  + imageWidth + 'px background-color: #fff; color: #444; }'
+  tc +=       '.box {background-color:' + bgColor + '; color: #fff; border-radius: 5px; padding: 20px; font-size: 150%; width:' + imageWidth + 'px;}'          
   //Create the classes for the grid
   for(var i = 1; i < numberOfRows + 1 ; i++){
     for(var j = 1; j < parseInt(itemsPerRow) + 1; j ++){        
-      templateContent += '.' + alphabet[classCounter] + '{ grid-column: ' + j + ' / ' + (parseInt(j) + 1) + ';  grid-row: ' + i + ' / ' + (parseInt(i) +1) + '; } '                       
+      tc += '.' + alphabet[classCounter] + '{ grid-column: ' + j + ' / ' + (parseInt(j) + 1) + ';  grid-row: ' + i + ' / ' + (parseInt(i) +1) + '; } '                       
       classCounter++
     }      
   }
-  classCounter = 0;
-  templateContent +=     '</style></head><body><div class="wrapper">'
-  templateContent +=  "<script runat='server'>Platform.Load('core','1.1'); ";
-  templateContent +=    'var deData = Variable.GetValue("@OrderData"); '
-  templateContent += 	  'var data = Platform.Function.ParseJSON(deData); '    
-  templateContent +=    'var html = ""; '
-  templateContent +=    "var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']; "
-  templateContent +=    'try{'
-  templateContent +=      'for(var i = 0; i < data.length; i++){'
-  templateContent +=        'html += \'<div class="box \' + alphabet[i] + \'">\';'
-  //////////Write the box content here
-  templateContent +=        'html += \'<img style="border-radius: 10%; width:' + imageWidth + 'px" src="\' + data[i].imageUrl + \'"/>\';' 
-  templateContent +=        'html += \'<p>\' + data[i].name + \'</p>\';'
-  if(showPrice){
-    templateContent +=      'html += \'<hr><div style="font-size:' + fontSize + 'px;Font-weight: bold; color:' + nameColor + '">$\' + data[i].price + \'</div>\';';
-    }
-  if(showInventory){
-    //templateContent +=      'html += \'<hr><div style="font-size:' + fontSize + 'px;Font-weight: bold; color:' + nameColor + '">Available: \' + data[i].inventoryCount + \'</div>\';';        
-    
-  }
-  
-  templateContent +=      'html += \'</div>\';'         
-  templateContent +=    '}'
-  templateContent +=  'Write(html);'
-  templateContent +=  '}catch(err){'
-  templateContent +=    'Write("An error has occured: " + err);'
-  templateContent +=  '}'
-  templateContent +=  '<\/script>';  
-  templateContent += '</div></body></html>'
-  console.log(templateContent)  
-        
-	sdk.setContent(templateContent);     
+  tc +=     '</style></head><body><div class="wrapper">';
+  tc +=     "<script runat='server'>Platform.Load('core','1.1'); ";
+  tc +=       'try{'
+  tc +=         'var deData = Variable.GetValue("@OrderData");';
+  tc += 	      'var data = Platform.Function.ParseJSON(deData);';    
+  tc +=         'var html = "";';
+  tc +=         "var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']; ";
+  tc +=         'for(var i = 0; i < data.length; i++){'
+  tc +=           `html += '<div class="box ' + alphabet[i] + '">';`  
+  tc +=           `html += '<img style="border-radius: 10%; width:` + imageWidth + `px" src="' + data[i].imageUrl + '"/>';` 
+  tc +=           `html += '<p>' + data[i].name + '</p>';`
+  tc +=           showPrice ? `html += '<hr><p>$' + data[i].price + '</p>';` : "";
+  tc +=           showInventory ? `html += '<hr><p>Qty: ' + data[i].inventoryCount + '</p>';` : "";
+  tc +=           `html += '</div>';`         
+  tc +=         '}'
+  tc +=         'Write(html);'
+  tc +=       '}catch(err){'
+  tc +=         'Write("An error has occured: " + err);'
+  tc +=       '}'
+  tc +=     '<\/script>';  
+  tc += '</div></body></html>'
+
+	sdk.setContent(tc);     
 
   var superContent =  '<html>'
   superContent +=   '<head>'
@@ -271,8 +264,7 @@ document.getElementById('workspace').addEventListener("input", function () {
 });
 
 $(function () {
-
-
+  
 	$('#nameColorContainer').colorpicker().on('changeColor', function() {
 	  $("#nameColor").val($(this).colorpicker('getValue'));
       // do what you want

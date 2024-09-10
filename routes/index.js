@@ -17,8 +17,8 @@ function getToken(){
     },
     body: JSON.stringify({
       "grant_type": "client_credentials",
-      "client_id": "0i7d27jqre5c21u3wut354xo",
-      "client_secret": "Pe6WjdimSEnPPJi385O8tWcW",
+      "client_id": "<CLIENTID HERE>",
+      "client_secret": "<CLIENTSECERET HERE>",
       "account_id": "1407771"
     })
   
